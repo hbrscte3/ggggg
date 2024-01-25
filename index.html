@@ -71,7 +71,11 @@
             textarea.select();
             document.execCommand("copy");
             document.body.removeChild(textarea);
-            alert("Copied to clipboard!");
+            var popup = document.getElementById("copyPopup");
+            popup.style.display = "block";
+            setTimeout(function() {
+                popup.style.display = "none";
+            }, 2000);
         }
 
         function pasteLink() {
@@ -85,5 +89,6 @@
             document.getElementById("modifiedLink").innerText = "";
         }
     </script>
+    <div id="copyPopup" style="display:none; color:#4caf50;">Copied to clipboard!</div>
 </body>
 </html>
