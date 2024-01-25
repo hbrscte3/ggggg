@@ -59,7 +59,7 @@
     <script>
         function changeLink() {
             var originalLink = document.getElementById("originalLink").value;
-            var modifiedLink = originalLink.replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("dash/audio/8.mp4", "hls/720/main.m3u8");
+            var modifiedLink = originalLink.replace(/dash\/.*/, "hls/720/main.m3u8");
             document.getElementById("modifiedLink").innerText = modifiedLink;
         }
 
