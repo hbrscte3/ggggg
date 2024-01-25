@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Link Changer</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        input {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #modifiedLink {
+            color: #008CBA;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="color:#008CBA;">Change Video Link</h2>
+    <p>Enter the original link:</p>
+    <input type="text" id="originalLink" value="https://d1d34p8vz63oiq.cloudfront.net/893b2014-6b74-45da-9e22-59d9be18f45b/dash/audio/8.mp4">
+    <p>Modified Link:</p>
+    <p id="modifiedLink"></p>
+    <button onclick="changeLink()">Change Link</button>
+    <button onclick="copyToClipboard()">Copy</button>
+    <button onclick="pasteLink()">Paste Link</button>
+    <button onclick="clearLink()">Clear Link</button>
+
+    <script>
+        function changeLink() {
+            var originalLink = document.getElementById("originalLink").value;
+            var modifiedLink = originalLink.replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace("dash/audio/8.mp4", "hls/720/main.m3u8");
+            document.getElementById("modifiedLink").innerText = modifiedLink;
+        }
+
+        function copyToClipboard() {
+            var modifiedLink = document.getElementById("modifiedLink");
+            var textarea = document.createElement("textarea");
+            textarea.value = modifiedLink.innerText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+
+        function pasteLink() {
+            navigator.clipboard.readText().then(clipText => {
+                document.getElementById("originalLink").value = clipText;
+            });
+        }
+
+        function clearLink() {
+            document.getElementById("originalLink").value = "";
+            document.getElementById("modifiedLink").innerText = "";
+        }
+    </script>
+</body>
+</html>
