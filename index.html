@@ -1,94 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Link Changer</title>
-    <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        p {
-            color: #555;
-        }
-
-        input {
-            width: 80%;
-            padding: 8px;
-            margin: 10px 0;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #modifiedLink {
-            color: #008CBA;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Editor</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+    }
+    #linkContainer {
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 80%;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+    #copyStatus {
+        display: none;
+        color: green;
+    }
+</style>
 </head>
 <body>
-    <h2 style="color:#008CBA;">Change Video Link</h2>
-    <p>Enter the original link:</p>
-    <input type="text" id="originalLink" value="https://d1d34p8vz63oiq.cloudfront.net/893b2014-6b74-45da-9e22-59d9be18f45b/dash/audio/8.mp4">
-    <p>Modified Link:</p>
-    <p id="modifiedLink"></p>
-    <button onclick="changeLink()">Change Link</button>
-    <button onclick="copyToClipboard()">Copy</button>
-    <button onclick="pasteLink()">Paste Link</button>
-    <button onclick="clearLink()">Clear Link</button>
+<div id="linkContainer">
+    <input type="text" id="inputLink" placeholder="Enter Link">
+    <br>
+    <button onclick="processLink()">Process Link</button>
+    <button id="clearBtn" onclick="clearLink()">Clear Link</button>
+    <br>
+    <p id="originalLink"></p>
+    <p id="processedLink"></p>
+    <button id="copyBtn" onclick="copyLink()">Copy Link</button>
+    <p id="copyStatus">Link Copied!</p>
+</div>
 
-    <script>
-        function changeLink() {
-            var originalLink = document.getElementById("originalLink").value;
-            var modifiedLink = originalLink.replace("d1d34p8vz63oiq", "d26g5bnklkwsh4").replace(/dash\/.*/, "hls/720/main.m3u8");
-            document.getElementById("modifiedLink").innerText = modifiedLink;
-        }
+<script>
+    function processLink() {
+        const inputLink = document.getElementById('inputLink').value;
+        const processedLink = "https://psitoffers.store/1dm.php?vid=" + inputLink.split('.net/')[1].split('/dash')[0];
+        document.getElementById('originalLink').innerText = "Original Link: " + inputLink;
+        document.getElementById('processedLink').innerText = "Processed Link: " + processedLink;
+    }
 
-        function copyToClipboard() {
-            var modifiedLink = document.getElementById("modifiedLink");
-            var textarea = document.createElement("textarea");
-            textarea.value = modifiedLink.innerText;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            var popup = document.getElementById("copyPopup");
-            popup.style.display = "block";
-            setTimeout(function() {
-                popup.style.display = "none";
-            }, 2000);
-        }
+    function copyLink() {
+        const processedLink = document.getElementById('processedLink').innerText.split('Processed Link: ')[1];
+        const tempInput = document.createElement('input');
+        tempInput.value = processedLink;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        document.getElementById('copyStatus').style.display = 'block';
+        setTimeout(function() {
+            document.getElementById('copyStatus').style.display = 'none';
+        }, 2000);
+    }
 
-        function pasteLink() {
-            navigator.clipboard.readText().then(clipText => {
-                document.getElementById("originalLink").value = clipText;
-            });
-        }
-
-        function clearLink() {
-            document.getElementById("originalLink").value = "";
-            document.getElementById("modifiedLink").innerText = "";
-        }
-    </script>
-    <div id="copyPopup" style="display:none; color:#4caf50;">Copied to clipboard!</div>
+    function clearLink() {
+        document.getElementById('inputLink').value = '';
+        document.getElementById('originalLink').innerText = '';
+        document.getElementById('processedLink').innerText = '';
+    }
+</script>
 </body>
 </html>
