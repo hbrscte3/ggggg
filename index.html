@@ -65,7 +65,7 @@
 <script>
     function processLink() {
         const inputLink = document.getElementById('inputLink').value;
-        const processedLink = "https://psitoffers.store/1dm.php?vid=" + inputLink.split('.net/')[1].split('/dash')[0];
+        const processedLink = "yt-dlp -N 8 'https://psitoffers.store/testkey.php?vid=" + inputLink.split('.net/')[1].split('/dash')[0]+'&quality=720'+"'";
         document.getElementById('originalLink').innerText = "Original Link: " + inputLink;
         document.getElementById('processedLink').innerText = "Processed Link: " + processedLink;
     }
