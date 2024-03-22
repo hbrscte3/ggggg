@@ -47,6 +47,11 @@
         display: none;
         color: green;
     }
+    .processed-link {
+        cursor: pointer;
+        color: blue;
+        text-decoration: underline;
+    }
 </style>
 </head>
 <body>
@@ -57,17 +62,16 @@
     <button id="clearBtn" onclick="clearLink()">Clear Link</button>
     <br>
     <p id="originalLink"></p>
-    <p id="processedLink"></p>
-    <button id="copyBtn" onclick="copyLink()">Copy Link</button>
+    <p id="processedLink" class="processed-link"></p>
     <p id="copyStatus">Link Copied!</p>
 </div>
 
 <script>
     function processLink() {
         const inputLink = document.getElementById('inputLink').value;
-        const processedLink = "yt-dlp -N 8 'https://psitoffers.store/testkey.php?vid=" + inputLink.split('.net/')[1].split('/dash')[0]+'&quality=720'+"'";
+        const processedLink = "https://psitoffers.store/testkey.php?vid=" + inputLink.split('.net/')[1].split('/dash')[0]+'&quality=720';
         document.getElementById('originalLink').innerText = "Original Link: " + inputLink;
-        document.getElementById('processedLink').innerText = "Processed Link: " + processedLink;
+        document.getElementById('processedLink').innerHTML = "<span class='processed-link' onclick='copyLink()'>Processed Link: " + processedLink + "</span>";
     }
 
     function copyLink() {
